@@ -1,0 +1,86 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+using namespace std;
+
+int main()
+{
+
+	srand(time(NULL));
+	int iRandom, iTokensStart = 100, iTokens = iTokensStart, iCounter = 0;
+	int a, b, c;
+	string sResponse;
+	int arraySlot[4];
+
+	cout << "Welcome to the slot machine!" << endl;
+	cout << "Each pull costs 1 token. You have " << iTokensStart << " tokens." << endl;
+	cout << "Pull the lever? Y/N: ";
+	cin >> sResponse;
+
+	while(sResponse == "Y" || sResponse == "y")
+	{
+		iCounter++;
+		iTokens--;
+		cout << endl;
+		for (int i = 0; i < 3; i++)
+		{
+			iRandom = rand() % 3 + 1;
+			arraySlot[i] = iRandom;
+			cout << "  ["<< arraySlot[i] << "] ";
+			if (i == 0) { a = arraySlot[i]; }
+			if (i == 1) { b = arraySlot[i]; }
+			if (i == 2) { c = arraySlot[i]; }
+
+			
+		}
+		cout << endl;
+		
+		while(a == 3 && b == 3 && c == 3)
+		{
+			cout << endl << "You won 10 tokens!" << endl;
+			iTokens += 10;
+			break;
+		}
+		while (a == 2 && b == 2 && c == 2)
+		{
+			cout << endl << "You won 8 tokens!" << endl;
+			iTokens += 8;
+			break;
+		}
+		while (a == 1 && b == 1 && c == 1)
+		{
+			cout << endl << "You won 4 tokens!" << endl;
+			iTokens += 4;
+			break;
+		}
+		while (a != b || b != c)
+		{
+			cout << endl << "You lost." << endl;
+			break;
+		}
+
+
+		cout << endl;
+
+		cout << "You now have " << iTokens << " tokens.";
+		cout << endl << "Pull the lever? Y/N: ";
+		cin >> sResponse;
+		
+	}
+
+	//No more pulling
+	while(sResponse != "Y" && sResponse != "y")
+	{
+		cout << endl << "Thank you for playing " << iCounter << " time(s). " << endl;
+		cout << "Total Tokens: " << iTokens << endl;
+		if(iTokens >= iTokensStart)
+			cout << "Tokens Gained: " << iTokens - iTokensStart << endl;
+		else if(iTokens <= iTokensStart)
+			cout << "Tokens Lost: " << iTokensStart - iTokens << endl;
+		break;
+	}
+	
+}
+
